@@ -8,9 +8,6 @@ const {
   getRecording,
 } = require("../controllers/twilio");
 
-router.get("/", (req, res) => {
-  res.send('App deployed on Heroku !!!);
-});
 router.post("/voice", inboundCall);
 router.post("/record", recordVoicemail);
 router.post("/recording-status", recordingStatus);
