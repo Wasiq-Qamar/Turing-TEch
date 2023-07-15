@@ -8,6 +8,10 @@ const app = express();
 app.use(urlencoded({ extended: false }));
 app.use("/", routes);
 
+app.get('/', (req, res) => {
+  res.send('Twilio Call forwadding on Heroku.');
+})
+
 const server = http.createServer(app);
 server.listen(API_PORT, () => {
   console.log(`Server listening on port: ${API_PORT}`);
