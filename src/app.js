@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 })
 
 const server = http.createServer(app);
-server.listen(API_PORT, () => {
+server.listen(process.env.PORT || API_PORT, () => {
   console.log(`Server listening on port: ${API_PORT}`);
 });
