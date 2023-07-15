@@ -1,0 +1,22 @@
+{
+  "name": "turing-tech",
+  "version": "1.0.0",
+  "description": "This project is for the call-forwading api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app",
+    "dev": "nodemon src/app"
+  },
+  "author": "Wasiq Qamar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "twilio": "^4.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
