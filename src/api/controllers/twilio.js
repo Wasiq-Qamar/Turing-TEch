@@ -65,6 +65,19 @@ const inboundCall = async (req, res) => {
 
 const recordVoicemail = (req, res) => {
   const { RecordingUrl, From, To, RecordingDuration } = req.body;
+  const data = {
+    RecordingUrl, From, To, RecordingDuration
+  }
+
+  const jsonData = JSON.stringify(data);
+  fs.writeFile('recordings.json', jsonData, 'utf8', (err) => {
+    if (err) {
+      console.error('Error writing to file:', err);
+      return;
+    }
+    
+    console.log('Data written to file successfully.');
+  });
 
   res.send({ RecordingUrl, From, To, RecordingDuration });
 };
@@ -72,13 +85,40 @@ const recordVoicemail = (req, res) => {
 const recordingStatus = (req, res) => {
   const recordingStatus = req.body.RecordingStatus;
   const recordingUrl = req.body.RecordingUrl;
+//   console.log(req.body)
 
   res.send({ recordingUrl, recordingStatus });
 };
 
+const message = (req, res) => {
+  const incomingMessage = req.body.Body;
+  const senderPhoneNumber = req.body.From;
+
+  console.log(`Received message from ${senderPhoneNumber}: ${incomingMessage}`);
+
+  res.status(200).end();
+};
+
+const getRecording = (req, res) => {
+  fs.readFile("recordings.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+      return;
+    }
+
+    try {
+      const jsonData = JSON.parse(data);
+      res.json(jsonData);
+    } catch (parseError) {
+      res.status(500).send("Error parsing JSON");
+    }
+  });
+};
 
 module.exports = {
   inboundCall,
   recordVoicemail,
   recordingStatus,
+  message,
+  getRecording
 };
